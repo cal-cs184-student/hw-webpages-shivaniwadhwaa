@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campanile — CS184 Milestone Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    color: #222;
+    background: #fff;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  .page-header {
+    border-bottom: 2px solid #222;
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+  }
+
+  .page-header p { font-size: 13px; color: #666; margin-bottom: 6px; }
+
+  h1 {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+
+  .byline { font-size: 14px; color: #555; }
+
+  section { margin-bottom: 44px; }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  p { color: #444; margin-bottom: 0.85rem; }
+  p:last-child { margin-bottom: 0; }
+
+  .accomplish-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 24px;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 540px) { .accomplish-list { grid-template-columns: 1fr; } }
+
+  .accomplish-item {
+    padding: 10px 12px;
+    background: #f8f8f8;
+    border-radius: 6px;
+    border-left: 3px solid #555;
+  }
+
+  .accomplish-item strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 2px;
+  }
+
+  .accomplish-item span { font-size: 13px; color: #666; line-height: 1.5; }
+
+  .results-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 540px) { .results-cols { grid-template-columns: 1fr; } }
+
+  .results-col h3 {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #888;
+    margin-bottom: 10px;
+  }
+
+  .result-item {
+    font-size: 14px;
+    color: #444;
+    padding: 7px 0;
+    border-bottom: 1px solid #eee;
+    line-height: 1.5;
+  }
+
+  .result-item:last-child { border-bottom: none; }
+
+  .timeline { margin-top: 4px; }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .timeline-item:last-child { border-bottom: none; }
+
+  .tl-week { font-size: 12px; color: #888; padding-top: 2px; line-height: 1.4; }
+
+  .tl-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tl-body { font-size: 14px; color: #555; line-height: 1.55; }
+
+  .badge {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .badge-done { background: #e6f4ea; color: #2d6a4f; }
+  .badge-upcoming { background: #f0f0f0; color: #777; }
+
+  .callout {
+    background: #f5f5f5;
+    border-left: 3px solid #aaa;
+    padding: 14px 16px;
+    border-radius: 0 6px 6px 0;
+    margin: 16px 0;
+    font-size: 15px;
+    color: #333;
+  }
+
+  .links-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  a.link-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+    background: #fafafa;
+  }
+
+  a.link-btn:hover { background: #f0f0f0; border-color: #aaa; }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <p>CS184 Computer Graphics · UC Berkeley · April 20, 2026</p>
+  <h1>Campanile — Milestone Report</h1>
+  <p class="byline">Shivani Wadhwa, Roopa Srinivas, Akshat Kishore Shrivastava, Kushagra Srivastava</p>
+</header>
+
+<section>
+  <h2>Summary</h2>
+  <p>
+    We are building a real-time, browser-based renderer of UC Berkeley's Campanile, driven by physically accurate lighting. Every visual parameter — sky color, shadow direction, surface appearance — comes from physical models rather than hand-tuned values.
+  </p>
+  <p>
+    The scene features a time-of-day slider, a date slider for seasonal variation, weather modes (clear and rain), and bell chimes at the top of each hour. The demo runs entirely in the browser with no installation.
+  </p>
+  <div class="callout">
+    <strong>Milestone deliverable achieved:</strong> A full 24-hour day cycle with physically correct sun movement, Preetham sky color, and dynamic shadow mapping — running live in the browser.
+  </div>
+</section>
+
+<section>
+  <h2>Accomplishments</h2>
+  <div class="accomplish-list">
+    <div class="accomplish-item">
+      <strong>Project scaffold</strong>
+      <span>Three.js + WebGL 2.0 with orbit camera, HTML sliders, and GitHub Pages deployment.</span>
+    </div>
+    <div class="accomplish-item">
+      <strong>Solar positioning</strong>
+      <span>Solar declination, hour angle, azimuth, and altitude equations anchored to Berkeley GPS (37.87°N, 122.26°W).</span>
+    </div>
+    <div class="accomplish-item">
+      <strong>Preetham sky shader</strong>
+      <span>GPU sky dome with physically correct chromaticity from zenith to horizon, parameterized by sun elevation and turbidity.</span>
+    </div>
+    <div class="accomplish-item">
+      <strong>Campanile geometry</strong>
+      <span>Textured 3D mesh via Meshroom photogrammetry, optimized for 60fps on consumer hardware.</span>
+    </div>
+    <div class="accomplish-item">
+      <strong>Shadow mapping</strong>
+      <span>Directional shadow map driven by the solar position — updates live as the time slider moves.</span>
+    </div>
+    <div class="accomplish-item">
+      <strong>Interactive UI</strong>
+      <span>Time-of-day and date sliders connected to the full lighting pipeline with real-time feedback.</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Preliminary Results</h2>
+  <div class="results-cols">
+    <div class="results-col">
+      <h3>Validated</h3>
+      <div class="result-item">Solar azimuth/altitude matches NOAA tables within &lt;0.5° across all months for Berkeley coordinates.</div>
+      <div class="result-item">Preetham sky chromaticity matches reference images from Preetham et al. (1999) at T=2.5.</div>
+      <div class="result-item">Day cycle runs at 60fps on M2 MacBook Pro with no visible frame drops during shadow updates.</div>
+      <div class="result-item">Campanile mesh renders with correct UV-mapped stone textures at multiple zoom distances.</div>
+    </div>
+    <div class="results-col">
+      <h3>Issues to address</h3>
+      <div class="result-item">Preetham shows banding near the sun disk at very low elevations — Hosek-Wilkie may be needed for twilight.</div>
+      <div class="result-item">Shadow map resolution needs tuning for distant views; stairstepping visible on ground plane at zoom-out.</div>
+      <div class="result-item">GPU utilization is ~35%, leaving headroom for Week 3 rain particles and volumetric fog.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Progress vs. Plan</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="tl-week">Week 1<br>Apr 7–14</div>
+      <div>
+        <div class="tl-title">Foundation <span class="badge badge-done">Complete</span></div>
+        <div class="tl-body">Set up Three.js project, acquired Campanile geometry via Meshroom, implemented orbit camera and UI sliders. Read Preetham et al. and assigned subsystem ownership. Delivered on schedule.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-week">Week 2<br>Apr 14–20</div>
+      <div>
+        <div class="tl-title">Milestone <span class="badge badge-done">Complete</span></div>
+        <div class="tl-body">Implemented and validated solar position equations. Deployed Preetham sky shader on GPU. Connected UI to lighting pipeline. Added shadow mapping. Milestone deliverable met. One slip: Hosek-Wilkie upgrade deferred to Week 3 due to time pressure on shadow mapping.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-week">Week 3<br>Apr 21–28</div>
+      <div>
+        <div class="tl-title">Materials & Weather <span class="badge badge-upcoming">Upcoming</span></div>
+        <div class="tl-body">Dry/wet BRDF materials, rain particle system, volumetric mist, overcast sky model, bell audio and timing. Hosek-Wilkie upgrade if time allows.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-week">Week 4<br>Apr 28–May 4</div>
+      <div>
+        <div class="tl-title">Polish & Submit <span class="badge badge-upcoming">Upcoming</span></div>
+        <div class="tl-body">Performance optimization, artifact fixes, demo video, final report webpage, and presentation. Submit by May 4, 11:59 PM.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Updated Plan</h2>
+  <p>
+    The project is on schedule. The only change from the original plan is deferring the Hosek-Wilkie upgrade from Week 2 into Week 3. Week 3 priorities in order: dry/wet BRDFs, rain particles and volumetric mist, bell audio, then Hosek-Wilkie if bandwidth allows.
+  </p>
+  <p>
+    Stretch goals (stars, snow, surrounding scene) remain unchanged — Week 4 activities if performance targets are met early. No team or ownership changes.
+  </p>
+</section>
+
+<section>
+  <h2>Links</h2>
+  <div class="links-row">
+    <a href="#" class="link-btn">↗ Live Demo</a>
+    <a href="#" class="link-btn">▶ Milestone Video</a>
+    <a href="#" class="link-btn">Presentation Slides</a>
+    <a href="https://akshatkishore.github.io/CS184_final_project_proposal/" class="link-btn">Original Proposal</a>
+  </div>
+  <p style="margin-top: 14px; font-size: 13px; color: #888;">Video is unlisted on YouTube / shared Google Drive, visible to all Berkeley users.</p>
+</section>
+
+</body>
+</html>
